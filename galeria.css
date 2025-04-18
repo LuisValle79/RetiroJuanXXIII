@@ -1,328 +1,167 @@
 /* Gallery Hero Section */
 .gallery-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('assets/gallery-hero.jpg') center/cover fixed;
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    color: white;
+    position: relative;
     margin-top: 76px;
 }
 
-.gallery-hero h1 {
-    font-size: 3.5rem;
-    color: var(--secondary);
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* Video Gallery */
-.video-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.video-card:hover {
-    transform: translateY(-10px);
-}
-
-.video-thumbnail {
+.gallery-hero .carousel-item {
+    height: 75vh;
     position: relative;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
 }
 
-.video-thumbnail img {
+.gallery-hero .carousel-item::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    z-index: 1;
+}
+
+.gallery-hero .carousel-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.1);
+    transition: transform 6s ease;
+}
+
+.gallery-hero .carousel-item.active img {
+    transform: scale(1);
+}
+
+.gallery-hero .carousel-caption {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2.5rem;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    max-width: 800px;
+    margin: 0 auto;
+    bottom: 50%;
+    transform: translateY(50%);
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gallery-hero .carousel-caption h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInDown 1s ease;
+}
+
+.gallery-hero .carousel-caption p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease;
+}
+
+/* Video Gallery Enhancements */
+.video-gallery {
+    padding: 5rem 0;
+    background: linear-gradient(to bottom, #f8f9fa, #fff);
+}
+
+.video-card {
+    transform: translateY(0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 2rem;
+}
+
+.video-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.video-thumbnail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+    transition: opacity 0.3s ease;
 }
 
 .play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.play-button i {
-    color: var(--primary);
-    font-size: 24px;
-}
-
-.video-card:hover .play-button {
-    background: var(--primary);
-}
-
-.video-card:hover .play-button i {
-    color: white;
-}
-
-.video-info {
-    padding: 1.5rem;
-}
-
-.video-info h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: var(--primary);
-}
-
-/* Testimonial Cards */
+/* Testimonial Cards Enhancement */
 .testimonial-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    height: 100%;
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
 }
 
-.testimonial-content {
-    position: relative;
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .testimonial-content i {
-    color: var(--primary);
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.8;
 }
 
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    margin-top: 1.5rem;
-}
-
-.testimonial-author img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 1rem;
-    object-fit: cover;
-}
-
-.testimonial-author h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: var(--primary);
-}
-
-/* Share Story Section */
-.share-story {
-    background: white;
-}
-
-.share-story-image {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-}
-
-.share-story-image img {
-    transition: transform 0.3s ease;
-}
-
-.share-story-image:hover img {
-    transform: scale(1.05);
-}
-
-/* Enhanced Navbar Styles */
-.navbar {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.brand-text h1 {
-    font-size: 1.2rem;
-    margin: 0;
-    line-height: 1.2;
-}
-
-.brand-text p {
-    font-size: 0.9rem;
-    margin: 0;
-    color: var(--primary);
-}
-
-.nav-link {
-    position: relative;
-    padding: 0.5rem 1rem !important;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: var(--primary);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 70%;
-}
-
-/* Enhanced Footer Styles */
-/* Footer */
-.footer {
-    background: var(--accent);
-    color: white;
-    padding: 2rem 0;
-    margin-top: 2rem;
-}
-
-.footer h4 {
-    color: var(--secondary);
-    margin-bottom: 1rem;
-}
-
-.footer p {
-    margin: 0;
-    opacity: 0.9;
-}
-
-@media (max-width: 768px) {
-    .footer .text-end {
-        text-align: center !important;
-        margin-top: 1rem;
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
     }
-    
-    .footer h4,
-    .footer p {
-        text-align: center;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-.footer-info p {
-    opacity: 0.9;
-    margin: 1rem 0;
-}
-
-.footer h4 {
-    color: var(--secondary);
-    margin-bottom: 1.5rem;
-    font-size: 1.3rem;
-}
-
-.footer-links,
-.footer-contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links li {
-    margin-bottom: 0.8rem;
-}
-
-.footer-links a {
-    color: white;
-    text-decoration: none;
-    opacity: 0.9;
-    transition: all 0.3s ease;
-}
-
-.footer-links a:hover {
-    opacity: 1;
-    color: var(--secondary);
-    padding-left: 5px;
-}
-
-.footer-contact li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    opacity: 0.9;
-}
-
-.footer-contact i {
-    margin-right: 1rem;
-    color: var(--secondary);
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-link {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.social-link:hover {
-    background: var(--secondary);
-    transform: translateY(-3px);
-}
-
-.footer-bottom {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive Adjustments */
 @media (max-width: 992px) {
-    .brand-text h1 {
-        font-size: 1rem;
+    .gallery-hero .carousel-caption h1 {
+        font-size: 3rem;
     }
     
-    .brand-text p {
-        font-size: 0.8rem;
+    .gallery-hero .carousel-caption p {
+        font-size: 1.2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .brand-text {
-        display: none;
+    .gallery-hero .carousel-item {
+        height: 60vh;
     }
-    
-    .footer {
-        padding: 3rem 0 1rem;
+
+    .gallery-hero .carousel-caption {
+        width: 90%;
+        padding: 2rem;
     }
-    
-    .footer-info,
-    .footer h4 {
-        text-align: center;
-    }
-    
-    .social-links {
-        justify-content: center;
-    }
-    
-    .footer-contact li {
-        justify-content: center;
+
+    .gallery-hero .carousel-caption h1 {
+        font-size: 2.5rem;
     }
 }
