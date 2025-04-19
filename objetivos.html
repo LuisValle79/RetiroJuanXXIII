@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetivos - Movimiento Juan XXIII</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="objetivos.css">
+</head>
+<body>
+     <!-- Navigation -->
+     <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">
+                <img src="assets/logo.jpeg" alt="Logo Juan XXIII" height="50">
+                <div class="brand-text">
+                    <h1>Movimientos de Retiros Parroquiales Juan XXIII</h1>
+                    <p>"Con Cristo Todo, Sin Cristo Nada"</p>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quienes-somos">Quiénes Somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="objetivos.html">Objetivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#retiros">Retiros</a>
+                    </li>
+                    <!-- Add this new link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="galeria.html">Galería</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="objectives-hero">
+        <div id="objectivesCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#objectivesCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#objectivesCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#objectivesCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="assets/perseveranciasanvicente.jpg" class="d-block w-100" alt="Retiro Juan XXIII">
+                    <div class="carousel-caption">
+                        <h1 data-aos="fade-up">Frutos de un Retirista</h1>
+                        <p class="lead" data-aos="fade-up" data-aos-delay="200">Transformando vidas a través de Cristo</p>
+                        <a href="#core-values" class="btn btn-primary btn-lg mt-3" data-aos="fade-up" data-aos-delay="400">
+                            Descubre Más <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/perseverantes.jpg" class="d-block w-100" alt="Experiencia Espiritual">
+                    <div class="carousel-caption">
+                        <h1 data-aos="fade-up">Experiencia Transformadora</h1>
+                        <p class="lead" data-aos="fade-up" data-aos-delay="200">Un encuentro personal con Cristo</p>
+                        <a href="#process" class="btn btn-primary btn-lg mt-3" data-aos="fade-up" data-aos-delay="400">
+                            Conoce el Proceso <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="assets/perseverantes2.jpg" class="d-block w-100" alt="Comunidad Juan XXIII">
+                    <div class="carousel-caption">
+                        <h1 data-aos="fade-up">Comunidad de Fe</h1>
+                        <p class="lead" data-aos="fade-up" data-aos-delay="200">Unidos en el amor de Cristo</p>
+                        <a href="#contact" class="btn btn-primary btn-lg mt-3" data-aos="fade-up" data-aos-delay="400">
+                            Únete a Nosotros <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#objectivesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#objectivesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </section>
+
+
+
+    <!-- Después del carousel -->
+<section class="mission-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Nuestra Misión</span>
+            <h2 class="section-title">Objetivos del Movimiento</h2>
+            <div class="divider">
+                <span></span>
+                <i class="fas fa-cross"></i>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="objectives-container">
+            <div class="objective-column" data-aos="fade-right">
+                <div class="objective-header">
+                    <div class="objective-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Objetivos Generales</h3>
+                </div>
+                <div class="objective-list">
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Llamar a la conversión a las personas que están alejadas o al margen de la Iglesia.</p>
+                    </div>
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Crear un clima pastoral para que las acciones organizadas logren que los llamados cambien su conducta de vida y hagan una opción por Jesucristo.</p>
+                    </div>
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Fomentar la máxima formación integral de sus miembros mediante la oración, los sacramentos, los estudios catequéticos y teológicos.</p>
+                    </div>
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Procurar que los miembros del movimiento vivan su compromiso bautismal sembrando en todos que es Iglesia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="objective-column" data-aos="fade-left">
+                <div class="objective-header">
+                    <div class="objective-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Objetivos Específicos</h3>
+                </div>
+                <div class="objective-list">
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Celebrar retiros de tres días, con los temas, dinámicas y prácticas devocionales que se han escogido.</p>
+                    </div>
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Organizar retiros de seguimiento, propios del Movimiento Juan XXIII, para las personas que han participado en la primera experiencia.</p>
+                    </div>
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Organizar la reunión semanal a nivel diocesano para fomentar la formación integral de sus dirigentes.</p>
+                    </div>
+                    <div class="objective-item">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Organizar la reunión semanal a nivel parroquial para fomentar la formación integral de sus miembros.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-header fruits-header" data-aos="fade-up">
+    <h2 class="section-title">Frutos de un Retirista</h2>
+    <div class="divider">
+        <span></span>
+        <i class="fas fa-dove"></i>
+        <span></span>
+    </div>
+</div>
+
+<!-- Core Values Section -->
+<section class="core-values py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Humildad -->
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="value-card">
+                        <div class="value-image">
+                            <img src="assets/humildad.jpeg" alt="Humildad" class="img-fluid">
+                        </div>
+                        <div class="value-content">
+                            <h3>Humildad</h3>
+                            <p>La humildad es la virtud que consiste en conocer las propias limitaciones y debilidades y actuar de acuerdo con este conocimiento. Vergüenza ninguna de los que guardan tus leyes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Firmeza -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-card">
+                        <div class="value-image">
+                            <img src="assets/firmeza.jpeg" alt="Firmeza" class="img-fluid">
+                        </div>
+                        <div class="value-content">
+                            <h3>Firmeza</h3>
+                            <p>La voluntad inquebrantable y constancia en la realización de algo. -Pedid, si es posible, que esta copa se aleje de mí. Pero no se haga mi voluntad, sino la tuya- Mateo 26, 39</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generosidad -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-card">
+                        <div class="value-image">
+                            <img src="assets/generosidad.jpeg" alt="Generosidad" class="img-fluid">
+                        </div>
+                        <div class="value-content">
+                            <h3>Generosidad</h3>
+                            <p>Ayudar a los demás sin esperar nada a cambio. -Somos simples servidores, no hemos hecho más que cumplir con nuestro deber- Lucas 17, 10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Obediencia -->
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="value-card">
+                        <div class="value-image">
+                            <img src="assets/obediencia.jpeg" alt="Obediencia" class="img-fluid">
+                        </div>
+                        <div class="value-content">
+                            <h3>Obediencia</h3>
+                            <p>Supone confianza en el que obedece y responsabilidad en el que manda. -Mejor que los sacrificios es la obediencia- 1 Sam. 15, 22</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paciencia -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-card">
+                        <div class="value-image">
+                            <img src="assets/paciencia.jpeg" alt="Paciencia" class="img-fluid">
+                        </div>
+                        <div class="value-content">
+                            <h3>Paciencia</h3>
+                            <p>La capacidad de sufrir y tolerar desgracias, adversidades o cosas molestas u ofensivas con fortaleza, sin quejarse ni rebelarse.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lealtad -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-card">
+                        <div class="value-image">
+                            <img src="assets/lealtad.jpg" alt="Lealtad" class="img-fluid">
+                        </div>
+                        <div class="value-content">
+                            <h3>Lealtad</h3>
+                            <p>Respeto y fidelidad a los propios principios y a los compromisos asumidos. -Muy bien, servidor bueno y fiel- Mateo 25, 21</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="title-decoration"></div>
+                <h2 class="section-title">Proceso del Retiro</h2>
+                <i class="fas fa-dove title-icon"></i>
+            </div>
+            <!-- Rest of the content -->
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3>1. Evangelización</h3>
+                        <p>El Retiro Juan XXIII es un retiro de evangelización kerígmática que busca descubrir, a quienes se han apartado del camino del Señor y viven en el anonimato de la vida pensando que el evangelio no puede ser predicado para ellos, que existen un camino diferente y mucho mejor y tratar de provocar en ellos una conversión, un cambio en su conducta y en su vida cristiana mediante la experiencia de un encuentro con Cristo vivo.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3>2. Conversión</h3>
+                        <p>Teniendo presente que es el mismo Cristo quien produce la conversión y el cambio, el Retiro, las charlas y todas las actividades previstas están orientadas a ayudar a que se produzca esa conversión, a potenciar ese momento para que quien lo está viviendo se encuentre con Cristo y le de una respuesta que cambie su vida.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3>3. Estructura</h3>
+                        <p>Para alcanzar este fin, el Retiro posee una estructura establecida, unas charlas y actividades previstas que son propias del Movimiento y que deben ser mantenidas así, sin agregar, ni suprimir o cambiar los esquemas originales y aprobados.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3>4. Charlas y Reflexión</h3>
+                        <p>Las charlas del Retiro, repartidas en sus tres días de duración, una noche de reflexión, un día de conversión y un día de apostolado, buscan despertar la conciencia de los participantes llevándolos a reflexionar sobre su vida. Se les invita a reconocer la necesidad de un cambio, presentándoles a un Cristo vivo y personal, Dios y Hombre a la vez, como el camino a ese cambio. Se les lleva también al conocimiento de lo que es la Gracia de Dios y se pone en evidencia su presencia en la transformación de nuestra vida.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3>5. Actividades</h3>
+                        <p>Las actividades previstas consisten en la participación activa y organizada en el desarrollo del Retiro, de aquellos que ya han vivido la experiencia anterior de un retiro Juan XXIII, con sus oraciones, ayunos, sacrificios y otras actividades religiosas conforme a la Tradición de la Iglesia.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3>6. Clausura</h3>
+                        <p>La Clausura es el primer contacto que tiene el nuevo retirista con el mundo externo, con su familia, con amigos y con su propia fe. Un contacto, que para muchos es momento de iniciar una nueva vida, momento de perdón y de reconciliación con el mundo que ha ofendido. Tiene varios componentes importantes, a saber; la presentación de los nuevos retiristas, el encuentro con sus familiares y amigos y la entrega de los membretes (carnets) que lo identifica como nuevo retirista y donde éste hace varios compromisos. Como elemento importante en la experiencia del retiro Juan XXIII, la clausura se programa al finalizar la misa de clausura por lo que debe revestirse de gran solemnidad desde la liturgia que le antecede y en la ceremonia en sí misma, sobria, en un ambiente de fraternidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- At the bottom of the page, before closing body tag -->
+ <!-- Footer -->
+ <footer class="footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="footer-info">
+                    <img src="assets/logo.jpeg" alt="Logo Juan XXIII" height="60" class="mb-3">
+                    <p>Movimiento de evangelización y renovación espiritual en la Iglesia Católica.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h4>Enlaces Rápidos</h4>
+                <ul class="footer-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li><a href="#retiros">Retiros</a></li>
+                    <li><a href="galeria.html">Galería</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h4>Contacto</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-map-marker-alt"></i> Diócesis de Arecibo, Puerto Rico</li>
+                    <li><i class="fas fa-phone"></i> +1 (123) 456-7890</li>
+                    <li><i class="fas fa-envelope"></i> info@movimientojuanxxiii.org</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center mt-4">
+            <hr>
+            <p>&copy; 2024 Movimiento Juan XXIII. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html>

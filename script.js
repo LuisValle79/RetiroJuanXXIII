@@ -54,3 +54,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     counters.forEach(counter => observer.observe(counter));
 });
+
+
+function sendWhatsApp(e) {
+    e.preventDefault();
+    
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const mensaje = document.getElementById('mensaje').value;
+    
+    const text = `*Nuevo mensaje de contacto*%0A%0A*Nombre:* ${nombre}%0A*Email:* ${email}%0A*Mensaje:* ${mensaje}`;
+    
+    window.open(`https://wa.me/51993672236?text=${text}`, '_blank');
+    
+    // Limpiar el formulario
+    document.getElementById('contactForm').reset();
+}

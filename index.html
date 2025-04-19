@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#quienes-somos">Quiénes Somos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#objetivos">Objetivos</a>
+                        <a class="nav-link" href="objetivos.html">Objetivos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#retiros">Retiros</a>
@@ -306,17 +306,17 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h2 class="section-title">Contáctanos</h2>
-                    <form class="contact-form" id="contactForm">
+                    <form class="contact-form" id="contactForm" onsubmit="sendWhatsApp(event)">
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre" required>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
                         </div>
                         <div class="mb-3">
-                            <textarea class="form-control" rows="5" placeholder="Mensaje" required></textarea>
+                            <textarea class="form-control" id="mensaje" rows="5" placeholder="Mensaje" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                        <button type="submit" class="btn btn-primary">Enviar Mensaje <i class="fab fa-whatsapp ms-2"></i></button>
                     </form>
                 </div>
                 <div class="col-lg-6">
