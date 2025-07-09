@@ -367,6 +367,94 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--dark);
 }
 
+/* Actividades Section */
+#actividades {
+    background-color: var(--light);
+}
+
+#actividades .section-title {
+    font-family: 'Cinzel', serif;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+}
+
+.activity-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.activity-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.activity-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.activity-card:hover .activity-image img {
+    transform: scale(1.1);
+}
+
+.activity-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.activity-content h3 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.activity-content p {
+    color: var(--dark);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.activity-content .date {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.activity-content .location {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.activity-content .btn {
+    align-self: flex-start;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
 /* Retiros Section */
 .retiro-card {
     background: white;
