@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const activityForm = document.getElementById('activityForm');
+const activityForm = document.getElementById('activityForm');
     const activitiesList = document.getElementById('activitiesList');
     const noActivitiesMessage = document.getElementById('noActivitiesMessage');
 
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h5>${activity.title}</h5>
                         <small>${activity.date} - ${activity.location}</small>
                         <p>${activity.description}</p>
-                        <small>Image: ${activity.image}</small>
+                        <small>Image: <img src="${activity.image}" alt="${activity.title}" style="max-width: 50px; max-height: 50px;"></small>
                     </div>
                     <div class="activity-actions">
                         <button class="btn btn-sm btn-warning edit-btn" data-index="${index}">Editar</button>
@@ -43,13 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = document.getElementById('activityDescription').value;
         const date = document.getElementById('activityDate').value;
         const location = document.getElementById('activityLocation').value;
-        const image = document.getElementById('activityImage').value;
+        const imageFile = document.getElementById('activityImage').files[0];
 
-        const newActivity = { title, description, date, location, image };
-        activities.push(newActivity);
-        saveActivities();
-
-        activityForm.reset();
+        if (imageFile) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const image = event.target.result;
+                const newActivity = { title, description, date, location, image };
+                activities.push(newActivity);
+                saveActivities();
+                activityForm.reset();
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert('Por favor, selecciona una imagen.');
+        }
     });
 
     activitiesList.addEventListener('click', (e) => {
@@ -65,7 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('activityDescription').value = activityToEdit.description;
             document.getElementById('activityDate').value = activityToEdit.date;
             document.getElementById('activityLocation').value = activityToEdit.location;
-            document.getElementById('activityImage').value = activityToEdit.image;
+            // For file input, you cannot set its value directly for security reasons.
+            // You might want to display the current image or a placeholder.
+            // document.getElementById('activityImage').value = activityToEdit.image;
 
             // Remove the activity from the array to re-add it after editing
             activities.splice(index, 1);
@@ -74,4 +83,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderActivities();
-});
