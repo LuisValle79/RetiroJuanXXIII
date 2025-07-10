@@ -1,23 +1,46 @@
-const activityForm = document.getElementById('activityForm');
-    const activitiesList = document.getElementById('activitiesList');
-    const noActivitiesMessage = document.getElementById('noActivitiesMessage');
+// Elementos del DOM
 
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwi6mXFPnMbonfF3UwKO-Txrwvc3v8fyKcwphtE1sPfnmhmQdQRJFdqQTjySwJ1jcOy/exec';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const activityForm = document.getElementById('activityForm');
+const activitiesList = document.getElementById('activitiesList');
+const noActivitiesMessage = document.getElementById('noActivitiesMessage');
+const submitButton = document.getElementById('submitButton');
 
 let activities = [];
+let editingActivityId = null;
 
-    const renderActivities = async () => {
-    activitiesList.innerHTML = '';
+// Supabase config (reemplaza con tus valores reales)
+const SUPABASE_URL = 'https://qnnhtuistcezjagsqzyj.supabase.co'; // ✅ Tu URL
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubmh0dWlzdGNlemphZ3NxenlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxNTkxNzQsImV4cCI6MjA2NzczNTE3NH0.NSlKBigrZzqAYEQfBIHAAiNY9jgSpL2mjbOnUTfpemc'; // ✅ Tu anon key
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const TABLE_NAME = 'activities'; // Nombre de la tabla de Supabase
+
+// Función para renderizar actividades desde Supabase
+const renderActivities = async () => {
     try {
-        const response = await fetch(APPS_SCRIPT_URL);
-        const data = await response.json();
-        activities = data; // Actualiza la variable global de actividades
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        console.log('Datos de actividades recibidos:', data);
+        console.log('Error al cargar actividades (si existe):', error);
+
+
+
+        if (error) throw error;
+
+        activities = data || [];
+        activitiesList.innerHTML = '';
 
         if (activities.length === 0) {
             noActivitiesMessage.classList.remove('d-none');
         } else {
             noActivitiesMessage.classList.add('d-none');
-            activities.forEach((activity, index) => {
+            activities.forEach(activity => {
                 const activityItem = document.createElement('div');
                 activityItem.classList.add('list-group-item', 'activity-list-item');
                 activityItem.innerHTML = `
@@ -25,82 +48,149 @@ let activities = [];
                         <h5>${activity.titulo}</h5>
                         <small>${activity.fecha} - ${activity.ubicacion}</small>
                         <p>${activity.descripcion}</p>
-                        <small>Image: <img src="${activity.imagenUrl}" alt="${activity.titulo}" style="max-width: 50px; max-height: 50px;"></small>
+                        <small>Imagen: <img src="${activity.imagenUrl}" alt="${activity.titulo}" style="max-width: 50px; max-height: 50px;"></small>
                     </div>
                     <div class="activity-actions">
-                        <button class="btn btn-sm btn-warning edit-btn" data-index="${index}">Editar</button>
-                        <button class="btn btn-sm btn-danger delete-btn" data-index="${index}">Eliminar</button>
+                        <button class="btn btn-sm btn-warning edit-btn" data-id="${activity.id}">Editar</button>
+                        <button class="btn btn-sm btn-danger delete-btn" data-id="${activity.id}">Eliminar</button>
                     </div>
                 `;
                 activitiesList.appendChild(activityItem);
             });
         }
     } catch (error) {
-        console.error('Error al cargar actividades:', error);
-        noActivitiesMessage.classList.remove('d-none'); // Mostrar mensaje de error o no hay actividades
-        noActivitiesMessage.textContent = 'Error al cargar actividades. Por favor, inténtalo de nuevo más tarde.';
+        console.error('Error al cargar actividades:', error.message);
+        noActivitiesMessage.classList.remove('d-none');
+        noActivitiesMessage.textContent = 'Error al cargar actividades. Inténtalo más tarde.';
+        alert('Error al cargar actividades: ' + error.message);
     }
 };
 
-    const saveActivityToSheet = async (newActivity) => {
+// Guardar nueva actividad en Supabase
+const saveActivityToSupabase = async (activity) => {
     try {
-        const response = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', // Necesario para evitar errores CORS con Apps Script
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newActivity),
-        });
-        // Apps Script con mode: 'no-cors' no devuelve una respuesta JSON parseable
-        // Solo podemos verificar que la petición se envió sin errores de red.
-        console.log('Actividad enviada a Google Sheets.');
-        renderActivities(); // Vuelve a renderizar para mostrar la actividad recién añadida
+        console.log('Datos de actividad a guardar:', activity);
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .insert([activity]);
+
+        if (error) throw error;
+
+        console.log('Actividad añadida:', data);
+        alert('Actividad añadida con éxito!');
+        renderActivities();
     } catch (error) {
-        console.error('Error al guardar actividad en Google Sheets:', error);
-        alert('Error al guardar actividad. Por favor, inténtalo de nuevo.');
+        console.error('Error al guardar actividad:', error.message);
+        alert('Error al guardar actividad: ' + error.message);
     }
 };
 
-    activityForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+// Editar actividad
+const editActivityInSupabase = async (activityId, updatedActivity) => {
+    try {
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .update(updatedActivity)
+            .eq('id', activityId);
 
-        const title = document.getElementById('activityTitle').value;
-        const description = document.getElementById('activityDescription').value;
-        const date = document.getElementById('activityDate').value;
-        const location = document.getElementById('activityLocation').value;
-        const imageFile = document.getElementById('activityImage').files[0];
+        if (error) throw error;
 
-    if (title && description && date && location && imageFile) { // Validar que todos los campos estén llenos
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const image = event.target.result; // Data URL de la imagen
-            const newActivity = {
-                id: Date.now(), // Un ID único para la actividad
+        console.log('Actividad actualizada:', data);
+        alert('Actividad actualizada con éxito!');
+        renderActivities();
+    } catch (error) {
+        console.error('Error al editar actividad:', error.message);
+        alert('Error al editar actividad: ' + error.message);
+    }
+};
+
+// Eliminar actividad
+const deleteActivityFromSupabase = async (activityId) => {
+    try {
+        const { error } = await supabase
+            .from(TABLE_NAME)
+            .delete()
+            .eq('id', activityId);
+
+        if (error) throw error;
+
+        console.log('Actividad eliminada');
+        alert('Actividad eliminada con éxito!');
+        renderActivities();
+    } catch (error) {
+        console.error('Error al eliminar actividad:', error.message);
+        alert('Error al eliminar actividad: ' + error.message);
+    }
+};
+
+// Evento submit del formulario
+activityForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById('activityTitle').value;
+    const description = document.getElementById('activityDescription').value;
+    const date = document.getElementById('activityDate').value;
+    const location = document.getElementById('activityLocation').value;
+    const imageFile = document.getElementById('activityImage').files[0];
+
+    if (title && description && date && location) {
+        const processActivity = (imageUrl) => {
+            const activityData = {
                 titulo: title,
                 descripcion: description,
                 fecha: date,
                 ubicacion: location,
-                imagenUrl: image // Usamos imagenUrl para que coincida con el Apps Script
+                imagenUrl: imageUrl || ''
             };
-            saveActivityToSheet(newActivity); // Llama a la nueva función para guardar en Sheets
+
+            if (editingActivityId) {
+                editActivityInSupabase(editingActivityId, activityData);
+            } else {
+                saveActivityToSupabase(activityData);
+            }
+
             activityForm.reset();
+            editingActivityId = null;
+            if (submitButton) submitButton.textContent = 'Añadir Actividad';
         };
-        reader.readAsDataURL(imageFile);
+
+        if (imageFile) {
+            const reader = new FileReader();
+            reader.onload = (event) => processActivity(event.target.result);
+            reader.readAsDataURL(imageFile);
+        } else {
+            if (editingActivityId) {
+                const originalActivity = activities.find(a => a.id === editingActivityId);
+                processActivity(originalActivity ? originalActivity.imagenUrl : '');
+            } else {
+                alert('Selecciona una imagen para la nueva actividad.');
+            }
+        }
     } else {
-        alert('Por favor, completa todos los campos y selecciona una imagen.');
+        alert('Por favor, completa todos los campos.');
     }
-    });
+});
 
-    activitiesList.addEventListener('click', (e) => {
-        if (e.target.classList.contains('delete-btn')) {
-            const index = e.target.dataset.index;
-        alert('La función de eliminar no está implementada con Google Sheets en esta versión.');
-        // Aquí iría la lógica para eliminar de Google Sheets si el Apps Script lo soportara
+// Eventos de botones Editar y Eliminar
+activitiesList.addEventListener('click', (e) => {
+    const id = e.target.dataset.id;
+    if (e.target.classList.contains('delete-btn')) {
+        if (confirm('¿Estás seguro de eliminar esta actividad?')) {
+            deleteActivityFromSupabase(id);
+        }
     } else if (e.target.classList.contains('edit-btn')) {
-        alert('La función de editar no está implementada con Google Sheets en esta versión.');
-        // Aquí iría la lógica para editar en Google Sheets si el Apps Script lo soportara
-    }
-    });
+        const activity = activities.find(act => act.id == id);
+        if (activity) {
+            document.getElementById('activityTitle').value = activity.titulo;
+            document.getElementById('activityDescription').value = activity.descripcion;
+            document.getElementById('activityDate').value = activity.fecha;
+            document.getElementById('activityLocation').value = activity.ubicacion;
 
-    renderActivities();
+            editingActivityId = activity.id;
+            if (submitButton) submitButton.textContent = 'Guardar Cambios';
+        }
+    }
+});
+
+// Inicializar renderizado
+renderActivities();

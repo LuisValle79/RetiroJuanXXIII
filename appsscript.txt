@@ -1,0 +1,125 @@
+const SHEET_NAME = 'bdmovimiento';
+
+function doGet(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    const response = { status: 'error', message: 'Sheet not found' };
+    const output = ContentService.createTextOutput(JSON.stringify(response));
+    output.setMimeType(ContentService.MimeType.JSON);
+    output.setHeaders({
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    });
+    return output;
+  }
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  const activities = data.map(row => {
+    let obj = {};
+    headers.forEach((header, i) => {
+      obj[header] = row[i];
+    });
+    return obj;
+  });
+  const output = ContentService.createTextOutput(JSON.stringify(activities));
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setHeaders({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+  });
+  return output;
+}
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    const response = { status: 'error', message: 'Sheet not found' };
+    return ContentService.createTextOutput(JSON.stringify(response))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader("Access-Control-Allow-Origin", "*")
+      .setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+      .setHeader("Access-Control-Allow-Headers", "Content-Type");
+  }
+
+  let data;
+  try {
+    data = JSON.parse(e.postData.contents);
+  } catch (err) {
+    const output = ContentService.createTextOutput(JSON.stringify({ status: 'error', message: 'Invalid JSON payload: ' + err.message }));
+    output.setMimeType(ContentService.MimeType.JSON);
+    output.setHeaders({
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    });
+    return output;
+  }
+
+  const action = data.action; // No default 'add' here
+  const dataRange = sheet.getDataRange();
+  const values = dataRange.getValues();
+  const headers = values[0];
+  let response = { status: 'error', message: 'Unknown error' };
+
+  try {
+    if (action === 'add') {
+      const newRow = [
+        data.id || Date.now(),
+        data.titulo || '',
+        data.descripcion || '',
+        data.fecha || '',
+        data.ubicacion || '',
+        data.imagenUrl || ''
+      ];
+      sheet.appendRow(newRow);
+      response = { status: 'success', message: 'Activity added' };
+    } else if (action === 'edit') {
+      for (let i = 1; i < values.length; i++) {
+        if (String(values[i][0]) === String(data.id)) {
+          const updatedRow = [
+            data.id,
+            data.titulo || values[i][1],
+            data.descripcion || values[i][2],
+            data.fecha || values[i][3],
+            data.ubicacion || values[i][4],
+            data.imagenUrl || values[i][5]
+          ];
+          sheet.getRange(i + 1, 1, 1, 6).setValues([updatedRow]);
+          response = { status: 'success', message: 'Activity updated' };
+          break;
+        }
+      }
+      if (response.status !== 'success') {
+        response = { status: 'error', message: 'Activity not found for edit' };
+      }
+    } else if (action === 'delete') {
+      let deleted = false;
+      // Iterate from the bottom up to avoid issues with row indexing after deletion
+      for (let i = values.length - 1; i >= 1; i--) { // Start from last data row
+        if (String(values[i][0]) === String(data.id)) {
+          sheet.deleteRow(i + 1); // +1 because sheet rows are 1-indexed
+          response = { status: 'success', message: 'Activity deleted' };
+          deleted = true;
+          break; // Assuming IDs are unique, we can break after first match
+        }
+      }
+      if (!deleted) {
+        response = { status: 'error', message: 'Activity not found for delete' };
+      }
+    } else {
+      response = { status: 'error', message: 'Invalid or missing action: ' + action };
+    }
+  } catch (err) {
+    response = { status: 'error', message: 'Error processing action: ' + err.message };
+  }
+  const output = ContentService.createTextOutput(JSON.stringify(response));
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setHeaders({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+  });
+  return output;
+}

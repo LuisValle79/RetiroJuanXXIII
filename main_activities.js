@@ -1,17 +1,27 @@
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwi6mXFPnMbonfF3UwKO-Txrwvc3v8fyKcwphtE1sPfnmhmQdQRJFdqQTjySwJ1jcOy/exec';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const SUPABASE_URL = 'https://qnnhtuistcezjagsqzyj.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubmh0dWlzdGNlemphZ3NxenlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxNTkxNzQsImV4cCI6MjA2NzczNTE3NH0.NSlKBigrZzqAYEQfBIHAAiNY9jgSpL2mjbOnUTfpemc';
+const TABLE_NAME = 'activities';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
     const activitiesContainer = document.getElementById('activities-container');
 
     const loadActivities = async () => {
         try {
-            const response = await fetch(APPS_SCRIPT_URL);
-            const data = await response.json();
+            const { data, error } = await supabase
+                .from(TABLE_NAME)
+                .select('*')
+                .order('fecha', { ascending: false });
+
+            if (error) throw error;
 
             if (data.length === 0) {
                 activitiesContainer.innerHTML = '<p class="text-center">No hay actividades programadas actualmente.</p>';
             } else {
-                activitiesContainer.innerHTML = ''; // Limpiar el mensaje de "no hay actividades"
+                activitiesContainer.innerHTML = '';
                 data.forEach(activity => {
                     const activityCard = document.createElement('div');
                     activityCard.classList.add('col-md-4');
@@ -34,5 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Inicializar la carga de actividades
     loadActivities();
+
+    // Escuchar eventos de actualización desde el panel (opcional, si usas eventos personalizados)
+    window.addEventListener('activitiesUpdated', () => {
+        loadActivities();
+    });
 });
