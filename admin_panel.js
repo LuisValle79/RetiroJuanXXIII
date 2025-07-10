@@ -1,5 +1,4 @@
 // Elementos del DOM
-
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 const activityForm = document.getElementById('activityForm');
@@ -10,13 +9,11 @@ const submitButton = document.getElementById('submitButton');
 let activities = [];
 let editingActivityId = null;
 
-// Supabase config (reemplaza con tus valores reales)
-const SUPABASE_URL = 'https://qnnhtuistcezjagsqzyj.supabase.co'; // ✅ Tu URL
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubmh0dWlzdGNlemphZ3NxenlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxNTkxNzQsImV4cCI6MjA2NzczNTE3NH0.NSlKBigrZzqAYEQfBIHAAiNY9jgSpL2mjbOnUTfpemc'; // ✅ Tu anon key
-
+// Supabase config
+const SUPABASE_URL = 'https://qnnhtuistcezjagsqzyj.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubmh0dWlzdGNlemphZ3NxenlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxNTkxNzQsImV4cCI6MjA2NzczNTE3NH0.NSlKBigrZzqAYEQfBIHAAiNY9jgSpL2mjbOnUTfpemc';
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const TABLE_NAME = 'activities'; // Nombre de la tabla de Supabase
+const TABLE_NAME = 'activities';
 
 // Función para renderizar actividades desde Supabase
 const renderActivities = async () => {
@@ -28,8 +25,6 @@ const renderActivities = async () => {
 
         console.log('Datos de actividades recibidos:', data);
         console.log('Error al cargar actividades (si existe):', error);
-
-
 
         if (error) throw error;
 
@@ -62,7 +57,12 @@ const renderActivities = async () => {
         console.error('Error al cargar actividades:', error.message);
         noActivitiesMessage.classList.remove('d-none');
         noActivitiesMessage.textContent = 'Error al cargar actividades. Inténtalo más tarde.';
-        alert('Error al cargar actividades: ' + error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudieron cargar las actividades. Inténtalo de nuevo más tarde.',
+            confirmButtonColor: '#1b396a',
+        });
     }
 };
 
@@ -77,11 +77,21 @@ const saveActivityToSupabase = async (activity) => {
         if (error) throw error;
 
         console.log('Actividad añadida:', data);
-        alert('Actividad añadida con éxito!');
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'La actividad ha sido añadida correctamente.',
+            confirmButtonColor: '#1b396a',
+        });
         renderActivities();
     } catch (error) {
         console.error('Error al guardar actividad:', error.message);
-        alert('Error al guardar actividad: ' + error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo guardar la actividad. Inténtalo de nuevo.',
+            confirmButtonColor: '#1b396a',
+        });
     }
 };
 
@@ -96,11 +106,21 @@ const editActivityInSupabase = async (activityId, updatedActivity) => {
         if (error) throw error;
 
         console.log('Actividad actualizada:', data);
-        alert('Actividad actualizada con éxito!');
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'La actividad ha sido actualizada correctamente.',
+            confirmButtonColor: '#1b396a',
+        });
         renderActivities();
     } catch (error) {
         console.error('Error al editar actividad:', error.message);
-        alert('Error al editar actividad: ' + error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo actualizar la actividad. Inténtalo de nuevo.',
+            confirmButtonColor: '#1b396a',
+        });
     }
 };
 
@@ -115,11 +135,21 @@ const deleteActivityFromSupabase = async (activityId) => {
         if (error) throw error;
 
         console.log('Actividad eliminada');
-        alert('Actividad eliminada con éxito!');
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'La actividad ha sido eliminada correctamente.',
+            confirmButtonColor: '#1b396a',
+        });
         renderActivities();
     } catch (error) {
         console.error('Error al eliminar actividad:', error.message);
-        alert('Error al eliminar actividad: ' + error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo eliminar la actividad. Inténtalo de nuevo.',
+            confirmButtonColor: '#1b396a',
+        });
     }
 };
 
@@ -163,11 +193,21 @@ activityForm.addEventListener('submit', (e) => {
                 const originalActivity = activities.find(a => a.id === editingActivityId);
                 processActivity(originalActivity ? originalActivity.imagenUrl : '');
             } else {
-                alert('Selecciona una imagen para la nueva actividad.');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Atención',
+                    text: 'Selecciona una imagen para la nueva actividad.',
+                    confirmButtonColor: '#1b396a',
+                });
             }
         }
     } else {
-        alert('Por favor, completa todos los campos.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'Por favor, completa todos los campos.',
+            confirmButtonColor: '#1b396a',
+        });
     }
 });
 
@@ -175,9 +215,20 @@ activityForm.addEventListener('submit', (e) => {
 activitiesList.addEventListener('click', (e) => {
     const id = e.target.dataset.id;
     if (e.target.classList.contains('delete-btn')) {
-        if (confirm('¿Estás seguro de eliminar esta actividad?')) {
-            deleteActivityFromSupabase(id);
-        }
+        Swal.fire({
+            icon: 'question',
+            title: '¿Estás seguro?',
+            text: 'Esta acción eliminará la actividad permanentemente.',
+            showCancelButton: true,
+            confirmButtonColor: '#1b396a',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteActivityFromSupabase(id);
+            }
+        });
     } else if (e.target.classList.contains('edit-btn')) {
         const activity = activities.find(act => act.id == id);
         if (activity) {

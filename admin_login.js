@@ -7,14 +7,24 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Simple hardcoded credentials for demonstration
     if (username === 'admin' && password === 'admin123') {
-        loginMessage.className = 'alert alert-success mt-3';
-        loginMessage.textContent = 'Login successful! Redirecting...';
-        setTimeout(() => {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'Inicio de sesión exitoso. Redirigiendo...',
+            timer: 1500,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        }).then(() => {
             window.location.href = 'admin_panel.html'; // Redirect to admin panel
-        }, 1000);
+        });
     } else {
-        loginMessage.className = 'alert alert-danger mt-3';
-        loginMessage.textContent = 'Invalid username or password.';
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Usuario o contraseña inválidos.',
+            confirmButtonColor: '#1b396a',
+        });
     }
-    loginMessage.classList.remove('d-none');
 });

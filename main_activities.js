@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const { data, error } = await supabase
                 .from(TABLE_NAME)
                 .select('*')
-                .order('fecha', { ascending: false });
+                .order('fecha', { ascending: true });
 
             if (error) throw error;
 

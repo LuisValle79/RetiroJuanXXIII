@@ -10,9 +10,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
     <style>
+        :root {
+            --primary: #1b396a;
+            --light: #f8f9fa;
+            --accent: #f4b400;
+        }
+
         body {
             background-color: var(--light);
             display: flex;
@@ -21,6 +29,7 @@
             min-height: 100vh;
             margin: 0;
         }
+
         .login-container {
             background-color: white;
             padding: 3rem;
@@ -30,22 +39,32 @@
             max-width: 400px;
             text-align: center;
         }
+
         .login-container h2 {
             color: var(--primary);
             margin-bottom: 2rem;
             font-family: 'Cinzel', serif;
         }
+
         .form-control {
             border-radius: 10px;
             padding: 0.8rem 1rem;
             margin-bottom: 1.5rem;
         }
+
         .btn-primary {
             width: 100%;
             padding: 0.8rem;
             border-radius: 10px;
             font-size: 1.1rem;
+            background-color: var(--primary);
+            border: none;
         }
+
+        .btn-primary:hover {
+            background-color: #13315c;
+        }
+
         .alert {
             margin-top: 1rem;
         }
@@ -72,3 +91,4 @@
     <script src="admin_login.js"></script>
 </body>
 </html>
+
